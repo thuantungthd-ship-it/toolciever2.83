@@ -1,0 +1,21 @@
+CIE/SIT Assessment V2 regression test results
+
+Checked locally before packaging:
+- python -m py_compile app.py engine_v2.py tests/test_v2_regressions.py : PASS
+- python -m unittest discover -s tests -v : 11/11 PASS
+
+Covered scenarios:
+1. Exam date ranges without spaces and chronological sorting.
+2. Stable identity across temporary/different input filenames.
+3. Re-upload of 67 students three times without appending duplicate assessment/profile/analysis rows.
+4. Changed scores create a replacement version with exactly one ACTIVE row.
+5. History normalized to percentage-point scale for standard classes and Band for IELTS.
+6. T8 -> T7 -> T8 upload order and same-current-record exclusion.
+7. Re-upload of unchanged August after July arrives refreshes the existing Analysis row in place.
+8. First-assessment skill comments use current scores and do not infer IELTS from score magnitude.
+9. E CLASS report comments only on Speaking.
+10. V1 standard report retains Tables 1/2/3, Other comments, and signatures/date area.
+11. Worksheet guard rejects missing/mismatched tabs/headers without creating tabs or editing headers.
+
+Scope limitation:
+These are offline tests with in-memory worksheet fakes. They are not a live integration test against the production Google Sheet. IT should run the checklist in IT_REVIEW_CHECKLIST.md with the real Streamlit Secrets/service-account credentials before approving production use.
